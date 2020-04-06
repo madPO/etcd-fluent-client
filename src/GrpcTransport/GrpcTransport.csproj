@@ -70,4 +70,8 @@
         </Protobuf>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\FluentClient\FluentClient.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -4,12 +4,4 @@
         <TargetFramework>netstandard2.0</TargetFramework>
     </PropertyGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\GrpcTransport\GrpcTransport.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Transport" />
-    </ItemGroup>
-
 </Project>

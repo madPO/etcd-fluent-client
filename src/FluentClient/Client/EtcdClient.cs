@@ -5,12 +5,15 @@ namespace FluentClient.Client
     using System.Threading.Tasks;
     using Auth;
     using Request;
+    using Transport;
 
     public class EtcdClient : IEtcdClient
     {
         private readonly string[] _host;
 
         private IEtcdAuthMethod _authMethod;
+        
+        private IEtcdTransport _transport;
 
         public EtcdClient(string[] host)
         {
@@ -31,6 +34,13 @@ namespace FluentClient.Client
         {
             _authMethod = authMethod;
             
+            return this;
+        }
+
+        public IEtcdClient UseTransport(IEtcdTransport transport)
+        {
+            _transport = transport;
+
             return this;
         }
 

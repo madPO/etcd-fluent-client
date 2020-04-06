@@ -5,6 +5,7 @@ namespace FluentClient.Client
     using System.Threading.Tasks;
     using Auth;
     using Request;
+    using Transport;
 
     /// <summary>
     /// Etcd fluent client
@@ -25,5 +26,10 @@ namespace FluentClient.Client
         /// Add auth
         /// </summary>
         IEtcdClient UseAuth(IEtcdAuthMethod authMethod);
+
+        /// <summary>
+        /// Add transport
+        /// </summary>
+        IEtcdClient UseTransport(IEtcdTransport transport);
     }
 }
