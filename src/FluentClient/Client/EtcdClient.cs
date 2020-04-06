@@ -1,26 +1,21 @@
 namespace FluentClient.Client
 {
     using System;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Auth;
+    using Gateway;
     using Request;
     using Transport;
 
     public class EtcdClient : IEtcdClient
     {
-        private readonly string[] _host;
-
         private IEtcdAuthMethod _authMethod;
         
         private IEtcdTransport _transport;
-
-        public EtcdClient(string[] host)
-        {
-            _host = host;
-        }
         
+        private IEtcdGateway _gateway;
+
         public Task PutAsync(IEtcdKey key, byte[] value, CancellationToken cancellationToken = default)
         {
             var request = Put(key, value);
@@ -29,12 +24,12 @@ namespace FluentClient.Client
 
         public IPutRequest Put(IEtcdKey key, byte[] value)
         {
+            var host = _gateway.GetHost();
             var request = new EtcdPutRequest(_transport)
             {
-                //todo: balancing
-                Host = _host.First(),
+                Host = host.Item1,
                 Key = key.Name,
-                //Port =
+                Port = host.Item2,
                 Value = value
             };
 
@@ -51,6 +46,13 @@ namespace FluentClient.Client
         public IEtcdClient UseTransport(IEtcdTransport transport)
         {
             _transport = transport;
+
+            return this;
+        }
+
+        public IEtcdClient UseGateway(IEtcdGateway gateway)
+        {
+            _gateway = gateway;
 
             return this;
         }

@@ -4,6 +4,7 @@ namespace FluentClient.Client
     using System.Threading;
     using System.Threading.Tasks;
     using Auth;
+    using Gateway;
     using Request;
     using Transport;
 
@@ -31,5 +32,10 @@ namespace FluentClient.Client
         /// Add transport
         /// </summary>
         IEtcdClient UseTransport(IEtcdTransport transport);
+        
+        /// <summary>
+        /// Add gateway
+        /// </summary>
+        IEtcdClient UseGateway(IEtcdGateway gateway);
     }
 }
