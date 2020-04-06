@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\FluentClient\FluentClient.csproj" />
+      <ProjectReference Include="..\..\src\GrpcTransport\GrpcTransport.csproj" />
     </ItemGroup>
 
 </Project>
