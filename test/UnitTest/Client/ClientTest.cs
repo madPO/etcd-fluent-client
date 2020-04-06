@@ -12,7 +12,7 @@ namespace UnitTest.Client
         [Fact]
         public void Create()
         {
-            var client = new EtcdClient(new [] { "localhost:2379" });
+            var client = new EtcdClient();
             
             using (client)
             {
@@ -23,7 +23,7 @@ namespace UnitTest.Client
         [Fact]
         public void UseUserAuth()
         {
-            var client = new EtcdClient(new [] { "localhost:2379" })
+            var client = new EtcdClient()
                 .UseAuth(new UserLoginAuth("root", "root"));
             
             using (client)
@@ -35,7 +35,7 @@ namespace UnitTest.Client
         [Fact]
         public void UseGrpcTransport()
         {
-            var client = new EtcdClient(new [] { "localhost:2379" })
+            var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport());
             
             using (client)
