@@ -4,6 +4,7 @@ namespace UnitTest.Client
     using FluentClient.Auth;
     using FluentClient.Client;
     using GrpcTransport;
+    using GrpcTransport.Implementation;
     using Xunit;
 
     public class ClientTest
