@@ -54,6 +54,7 @@ namespace FluentClient.Client
             ReleaseUnmanagedResources();
             if (disposing)
             {
+                _transport?.Dispose();
             }
         }
 

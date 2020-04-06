@@ -15,7 +15,7 @@
 
     <ItemGroup>
         <Protobuf Include="etcd\auth\authpb\auth.proto">
-          <GrpcServices>Server</GrpcServices>
+          <GrpcServices>Client</GrpcServices>
           <Access>Public</Access>
           <ProtoCompile>True</ProtoCompile>
           <ProtoRoot></ProtoRoot>
@@ -24,7 +24,7 @@
           <Generator>MSBuild:Compile</Generator>
         </Protobuf>
         <Protobuf Include="etcd\etcdserverpb.proto">
-          <GrpcServices>Server</GrpcServices>
+          <GrpcServices>Client</GrpcServices>
           <Access>Public</Access>
           <ProtoCompile>True</ProtoCompile>
           <ProtoRoot></ProtoRoot>
@@ -33,7 +33,7 @@
           <Generator>MSBuild:Compile</Generator>
         </Protobuf>
         <Protobuf Include="etcd\mvcc\mvccpb\kv.proto">
-          <GrpcServices>Server</GrpcServices>
+          <GrpcServices>Client</GrpcServices>
           <Access>Public</Access>
           <ProtoCompile>True</ProtoCompile>
           <ProtoRoot></ProtoRoot>
@@ -42,7 +42,7 @@
           <Generator>MSBuild:Compile</Generator>
         </Protobuf>
         <Protobuf Include="gogoproto\gogo.proto">
-          <GrpcServices>Server</GrpcServices>
+          <GrpcServices>Client</GrpcServices>
           <Access>Public</Access>
           <ProtoCompile>True</ProtoCompile>
           <ProtoRoot></ProtoRoot>
@@ -51,7 +51,7 @@
           <Generator>MSBuild:Compile</Generator>
         </Protobuf>
         <Protobuf Include="google\api\annotations.proto">
-            <GrpcServices>Server</GrpcServices>
+            <GrpcServices>Client</GrpcServices>
             <Access>Public</Access>
             <ProtoCompile>True</ProtoCompile>
             <ProtoRoot></ProtoRoot>
@@ -60,7 +60,7 @@
             <Generator>MSBuild:Compile</Generator>
         </Protobuf>
         <Protobuf Include="google\api\http.proto">
-            <GrpcServices>Server</GrpcServices>
+            <GrpcServices>Client</GrpcServices>
             <Access>Public</Access>
             <ProtoCompile>True</ProtoCompile>
             <ProtoRoot></ProtoRoot>

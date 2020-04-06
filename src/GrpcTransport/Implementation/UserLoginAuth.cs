@@ -1,5 +1,9 @@
-namespace FluentClient.Auth
+namespace GrpcTransport.Implementation
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using FluentClient.Auth;
+
     public class UserLoginAuth : IEtcdAuthMethod
     {
         private readonly string _login;
@@ -10,6 +14,11 @@ namespace FluentClient.Auth
         {
             _login = login;
             _password = password;
+        }
+
+        public Task PrepareAsync(CancellationToken cancellationToken = default)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

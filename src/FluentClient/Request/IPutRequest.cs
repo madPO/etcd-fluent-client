@@ -9,6 +9,16 @@ namespace FluentClient.Request
     /// </summary>
     public interface IPutRequest
     {
+        string Host { get;  }
+        
+        int Port { get;  }
+        
+        string Key { get;  }
+        
+        byte[] Value { get; }
+        
+        ILease Lease { get; }
+        
         /// <summary>
         /// Execute put request with lease
         /// </summary>
