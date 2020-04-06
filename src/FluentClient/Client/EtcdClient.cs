@@ -1,6 +1,7 @@
 namespace FluentClient.Client
 {
     using System;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Auth;
@@ -22,12 +23,22 @@ namespace FluentClient.Client
         
         public Task PutAsync(IEtcdKey key, byte[] value, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            var request = Put(key, value);
+            return request.ExecuteAsync(cancellationToken);
         }
 
         public IPutRequest Put(IEtcdKey key, byte[] value)
         {
-            throw new System.NotImplementedException();
+            var request = new EtcdPutRequest(_transport)
+            {
+                //todo: balancing
+                Host = _host.First(),
+                Key = key.Name,
+                //Port =
+                Value = value
+            };
+
+            return request;
         }
 
         public IEtcdClient UseAuth(IEtcdAuthMethod authMethod)

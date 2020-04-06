@@ -16,6 +16,7 @@ namespace GrpcTransport
 
             var put = new PutRequest
             {
+                //todo: encoding
                 Key = ByteString.CopyFromUtf8(request.Key),
                 Value = ByteString.CopyFrom(request.Value)
             };
@@ -26,7 +27,7 @@ namespace GrpcTransport
             }
 
             var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
-            var response = await client.PutAsync(put);
+            var response = await client.PutAsync(put, cancellationToken: cancellationToken);
         }
 
         public void Dispose()
