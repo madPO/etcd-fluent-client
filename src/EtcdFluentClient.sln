@@ -1,8 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrpcTransport", "GrpcTransport\GrpcTransport.csproj", "{764E50AC-92E5-4EF5-962A-98EBF502F7F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentClient", "FluentClient\FluentClient.csproj", "{726D8E4B-7B50-4E0D-9896-A27B65AC4C01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{764E50AC-92E5-4EF5-962A-98EBF502F7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{764E50AC-92E5-4EF5-962A-98EBF502F7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{764E50AC-92E5-4EF5-962A-98EBF502F7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{764E50AC-92E5-4EF5-962A-98EBF502F7F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{726D8E4B-7B50-4E0D-9896-A27B65AC4C01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{726D8E4B-7B50-4E0D-9896-A27B65AC4C01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{726D8E4B-7B50-4E0D-9896-A27B65AC4C01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{726D8E4B-7B50-4E0D-9896-A27B65AC4C01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
