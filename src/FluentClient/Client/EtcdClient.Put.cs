@@ -6,7 +6,7 @@ namespace FluentClient.Client
 
     public partial class EtcdClient
     {
-        public IPutRequest Put(IEtcdKey key, byte[] value)
+        public IPutRequest Put(EtcdKey key, byte[] value)
         {
             var host = _gateway.GetHost();
             var request = new EtcdPutRequest(_transport)
@@ -20,7 +20,7 @@ namespace FluentClient.Client
             return request;
         }
         
-        public Task PutAsync(IEtcdKey key, byte[] value, CancellationToken cancellationToken = default)
+        public Task PutAsync(EtcdKey key, byte[] value, CancellationToken cancellationToken = default)
         {
             var request = Put(key, value);
             return request.ExecuteAsync(cancellationToken);

@@ -16,12 +16,12 @@ namespace FluentClient.Client
         /// <summary>
         /// Put value
         /// </summary>
-        Task PutAsync(IEtcdKey key, byte[] value, CancellationToken cancellationToken = default);
+        Task PutAsync(EtcdKey key, byte[] value, CancellationToken cancellationToken = default);
         
         /// <summary>
         /// Create put request, without execute
         /// </summary>
-        IPutRequest Put(IEtcdKey key, byte[] value);
+        IPutRequest Put(EtcdKey key, byte[] value);
 
         /// <summary>
         /// Add auth
