@@ -7,23 +7,8 @@ namespace FluentClient.Request
     /// <summary>
     /// Etcd put request
     /// </summary>
-    public interface IPutRequest
+    public interface IPutRequest : IRequest
     {
-        /// <summary>
-        /// Etcd host
-        /// </summary>
-        string Host { get;  }
-        
-        /// <summary>
-        /// Etcd host port
-        /// </summary>
-        int Port { get;  }
-        
-        /// <summary>
-        /// Key
-        /// </summary>
-        string Key { get;  }
-        
         /// <summary>
         /// Value
         /// </summary>

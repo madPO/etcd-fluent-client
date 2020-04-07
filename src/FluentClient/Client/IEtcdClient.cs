@@ -1,6 +1,7 @@
 namespace FluentClient.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Auth;
@@ -19,7 +20,7 @@ namespace FluentClient.Client
         Task PutAsync(EtcdKey key, byte[] value, CancellationToken cancellationToken = default);
         
         /// <summary>
-        /// Create put request, without execute
+        /// Create put request
         /// </summary>
         IPutRequest Put(EtcdKey key, byte[] value);
 
@@ -37,5 +38,35 @@ namespace FluentClient.Client
         /// Add gateway
         /// </summary>
         IEtcdClient UseGateway(IEtcdGateway gateway);
+
+        /// <summary>
+        /// Get value by key
+        /// </summary>
+        Task<IReadOnlyCollection<byte[]>> GetAsync(EtcdKey key, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create get request
+        /// </summary>
+        IGetRequest Get(EtcdKey key = null);
+
+        /// <summary>
+        /// Delete key
+        /// </summary>
+        Task DeleteAsync(EtcdKey key, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Create delete request
+        /// </summary>
+        IDeleteRequest Delete(EtcdKey key = null);
+
+        /// <summary>
+        /// Create lease
+        /// </summary>
+        Task<ILease> GrantLeaseAsync(long second, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Get lease
+        /// </summary>
+        Task<ILease> GetLeaseAsync(long id, CancellationToken cancellationToken = default);
     }
 }
