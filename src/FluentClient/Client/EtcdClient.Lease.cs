@@ -18,18 +18,6 @@ namespace FluentClient.Client
             return request.ExecuteAsync(cancellationToken);
         }
 
-        public Task<EtcdLease> GetLeaseAsync(long id, CancellationToken cancellationToken = default)
-        {
-            var request = new GetLeaseRequest((r, t) => Transport.ExecuteGetLeaseAsync(r, t))
-            {
-                Id = id
-            };
-            
-            FillHost(request);
-
-            return request.ExecuteAsync(cancellationToken);
-        }
-
         public Task RevokeLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default)
         {
             var request = new RevokeLeaseRequest((r, t) => Transport.ExecuteRevokeLeaseAsync(r, t))
@@ -42,7 +30,7 @@ namespace FluentClient.Client
             return request.ExecuteAsync(cancellationToken);
         }
 
-        public Task<long> TimeToLiveLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default)
+        public Task<EtcdLease> TimeToLiveLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default)
         {
             var request = new TimeToLiveLeaseRequest((r, t) => Transport.ExecuteTimeToLiveLeaseAsync(r, t))
             {

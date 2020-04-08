@@ -22,11 +22,9 @@ namespace FluentClient.Transport
         Task<IReadOnlyCollection<byte[]>> ExecuteGetAsync(IGetRequest getRequest, CancellationToken cancellationToken);
         
         Task<EtcdLease> ExecuteGrantLeaseAsync(ICreateLeaseRequest createLeaseRequest, CancellationToken cancellationToken);
-        
-        Task<EtcdLease> ExecuteGetLeaseAsync(IGetLeaseRequest getLeaseRequest, CancellationToken cancellationToken);
-        
+
         Task ExecuteRevokeLeaseAsync(IRevokeLeaseRequest revokeLeaseRequest, CancellationToken cancellationToken);
         
-        Task<long> ExecuteTimeToLiveLeaseAsync(ITimeToLiveLeaseRequest timeToLiveLeaseRequest, CancellationToken cancellationToken);
+        Task<EtcdLease> ExecuteTimeToLiveLeaseAsync(ITimeToLiveLeaseRequest timeToLiveLeaseRequest, CancellationToken cancellationToken);
     }
 }

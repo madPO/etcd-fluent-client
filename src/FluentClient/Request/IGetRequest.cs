@@ -8,7 +8,7 @@ namespace FluentClient.Request
         /// <summary>
         /// Key
         /// </summary>
-        string Key { get; set; }
+        EtcdKey Key { get; set; }
         
         EtcdKey ToKey { get; set; }
 

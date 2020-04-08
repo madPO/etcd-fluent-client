@@ -57,13 +57,8 @@ namespace FluentClient.Client
         /// </summary>
         Task<EtcdLease> GrantLeaseAsync(long second, CancellationToken cancellationToken = default);
 
-        /// <summary>
-        /// Get lease
-        /// </summary>
-        Task<EtcdLease> GetLeaseAsync(long id, CancellationToken cancellationToken = default);
-        
         Task RevokeLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default);
         
-        Task<long> TimeToLiveLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default);
+        Task<EtcdLease> TimeToLiveLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default);
     }
 }

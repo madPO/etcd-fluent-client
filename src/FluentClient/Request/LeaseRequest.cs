@@ -25,28 +25,7 @@ namespace FluentClient.Request
             return _execute(this, cancellationToken);
         }
     }
-    
-    public class GetLeaseRequest : IGetLeaseRequest
-    {
-        private readonly Func<IGetLeaseRequest, CancellationToken, Task<EtcdLease>> _execute;
 
-        public GetLeaseRequest(Func<IGetLeaseRequest, CancellationToken, Task<EtcdLease>> execute)
-        {
-            _execute = execute;
-        }
-
-        public string Host { get; set; }
-        
-        public int Port { get; set; }
-        
-        public long Id { get; set; }
-        
-        public Task<EtcdLease> ExecuteAsync(CancellationToken cancellationToken = default)
-        {
-            return _execute(this, cancellationToken);
-        }
-    } 
-    
     public class RevokeLeaseRequest : IRevokeLeaseRequest
     {
         private readonly Func<IRevokeLeaseRequest, CancellationToken, Task> _execute;
@@ -70,9 +49,9 @@ namespace FluentClient.Request
     
     public class TimeToLiveLeaseRequest : ITimeToLiveLeaseRequest
     {
-        private readonly Func<ITimeToLiveLeaseRequest, CancellationToken, Task<long>> _execute;
+        private readonly Func<ITimeToLiveLeaseRequest, CancellationToken, Task<EtcdLease>> _execute;
 
-        public TimeToLiveLeaseRequest(Func<ITimeToLiveLeaseRequest, CancellationToken, Task<long>> execute)
+        public TimeToLiveLeaseRequest(Func<ITimeToLiveLeaseRequest, CancellationToken, Task<EtcdLease>> execute)
         {
             _execute = execute;
         }
@@ -83,7 +62,7 @@ namespace FluentClient.Request
         
         public EtcdLease EtcdLease { get; set; }
         
-        public Task<long> ExecuteAsync(CancellationToken cancellationToken = default)
+        public Task<EtcdLease> ExecuteAsync(CancellationToken cancellationToken = default)
         {
             return _execute(this, cancellationToken);
         }

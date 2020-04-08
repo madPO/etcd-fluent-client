@@ -19,7 +19,7 @@ namespace FluentClient.Request
         
         public int Port { get; set; }
         
-        public string Key { get; set; }
+        public EtcdKey Key { get; set; }
 
         public EtcdKey ToKey { get; set; }
 

@@ -1,6 +1,8 @@
 namespace GrpcTransport
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Etcdserverpb;
@@ -18,7 +20,6 @@ namespace GrpcTransport
 
             var put = new PutRequest
             {
-                //todo: encoding
                 Key = ByteString.CopyFromUtf8(request.Key),
                 Value = ByteString.CopyFrom(request.Value)
             };
@@ -32,34 +33,104 @@ namespace GrpcTransport
             var response = await client.PutAsync(put, cancellationToken: cancellationToken);
         }
 
-        public Task ExecuteDeleteAsync(IDeleteRequest deleteRequest, CancellationToken cancellationToken)
+        public async Task ExecuteDeleteAsync(IDeleteRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var headers = new Metadata();
+            var delete = new DeleteRangeRequest
+            {
+                Key = ByteString.CopyFromUtf8(request.Key.Name)
+            };
+
+            if (request.ToKey != null)
+            {
+                delete.RangeEnd = ByteString.CopyFromUtf8(request.ToKey.Name);
+            }
+
+            if (request.ContainsKey != null)
+            {
+                headers.Add("prev-kv", request.ContainsKey.Name);
+            }
+            
+            //todo: method and lazy
+            var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var response = await client.DeleteRangeAsync(delete, headers, cancellationToken: cancellationToken);
         }
 
-        public Task<IReadOnlyCollection<byte[]>> ExecuteGetAsync(IGetRequest getRequest, CancellationToken cancellationToken)
+        public async Task<IReadOnlyCollection<byte[]>> ExecuteGetAsync(IGetRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var headers = new Metadata();
+            var get = new RangeRequest
+            {
+                Key = ByteString.CopyFromUtf8(request.Key.Name)
+            };
+
+            if (request.Limit.HasValue)
+            {
+                get.Limit = request.Limit.Value;
+            }
+
+            if (request.Version.HasValue)
+            {
+                get.Revision = request.Version.Value;
+            }
+
+            if (request.ContainsKey != null)
+            {
+                headers.Add("prev-kv", request.ContainsKey.Name);
+            }
+
+            if (request.ToKey != null)
+            {
+                get.RangeEnd = ByteString.CopyFromUtf8(request.ToKey.Name);
+            }
+            
+            
+            var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var response = await client.RangeAsync(get, headers, cancellationToken: cancellationToken);
+
+            return response.Kvs.Select(x => x.Value.ToByteArray()).ToArray();
         }
 
-        public Task<EtcdLease> ExecuteGrantLeaseAsync(ICreateLeaseRequest createLeaseRequest, CancellationToken cancellationToken)
+        public async Task<EtcdLease> ExecuteGrantLeaseAsync(ICreateLeaseRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var grant = new LeaseGrantRequest
+            {
+                TTL = request.Ttl
+            };
+            
+            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var response = await client.LeaseGrantAsync(grant, cancellationToken: cancellationToken);
+
+            if (response.Error != null)
+            {
+                throw new Exception(response.Error);
+            }
+            
+            return new EtcdLease(response.ID, requestedTtl: response.TTL);
         }
 
-        public Task<EtcdLease> ExecuteGetLeaseAsync(IGetLeaseRequest getLeaseRequest, CancellationToken cancellationToken)
+        public async Task ExecuteRevokeLeaseAsync(IRevokeLeaseRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var revoke = new LeaseRevokeRequest
+            {
+                ID = request.EtcdLease.Id
+            };
+            
+            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var response = await client.LeaseRevokeAsync(revoke, cancellationToken:cancellationToken);
         }
 
-        public Task ExecuteRevokeLeaseAsync(IRevokeLeaseRequest revokeLeaseRequest, CancellationToken cancellationToken)
+        public async Task<EtcdLease> ExecuteTimeToLiveLeaseAsync(ITimeToLiveLeaseRequest request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
-        }
+            var timeToLive = new LeaseTimeToLiveRequest
+            {
+                ID = request.EtcdLease.Id
+            };
+            
+            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var response = await client.LeaseTimeToLiveAsync(timeToLive, cancellationToken:cancellationToken);
 
-        public Task<long> ExecuteTimeToLiveLeaseAsync(ITimeToLiveLeaseRequest timeToLiveLeaseRequest, CancellationToken cancellationToken)
-        {
-            throw new System.NotImplementedException();
+            return new EtcdLease(response.ID, response.TTL, response.GrantedTTL);
         }
 
         public void Dispose()
