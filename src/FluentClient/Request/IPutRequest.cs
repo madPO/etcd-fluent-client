@@ -8,6 +8,11 @@ namespace FluentClient.Request
     public interface IPutRequest : IRequest, IEmptyRequest
     {
         /// <summary>
+        /// Key
+        /// </summary>
+        string Key { get; set; }
+        
+        /// <summary>
         /// Value
         /// </summary>
         byte[] Value { get; set; }

@@ -5,6 +5,11 @@ namespace FluentClient.Request
 
     public interface IGetRequest : IRequest, IValueRequest<IReadOnlyCollection<byte[]>>
     {
+        /// <summary>
+        /// Key
+        /// </summary>
+        string Key { get; set; }
+        
         EtcdKey ToKey { get; set; }
 
         EtcdKey ContainsKey { get; set; }

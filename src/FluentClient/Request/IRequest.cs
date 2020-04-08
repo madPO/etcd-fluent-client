@@ -11,10 +11,5 @@ namespace FluentClient.Request
         /// Etcd host port
         /// </summary>
         int Port { get; set; }
-        
-        /// <summary>
-        /// Key
-        /// </summary>
-        string Key { get; set; }
     }
 }
