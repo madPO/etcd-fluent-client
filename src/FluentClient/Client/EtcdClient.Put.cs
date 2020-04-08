@@ -8,14 +8,13 @@ namespace FluentClient.Client
     {
         public IPutRequest Put(EtcdKey key, byte[] value)
         {
-            var host = Gateway.GetHost();
             var request = new EtcdPutRequest((r, c) => Transport.ExecutePutAsync(r, c))
             {
-                Host = host.Item1,
                 Key = key.Name,
-                Port = host.Item2,
                 Value = value
             };
+            
+            FillHost(request);
 
             return request;
         }

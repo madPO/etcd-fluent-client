@@ -15,14 +15,12 @@ namespace FluentClient.Client
 
         public IDeleteRequest Delete(EtcdKey key = null)
         {
-            var host = Gateway.GetHost();
             var request = new DeleteRequest((r, t) => Transport.ExecuteDeleteAsync(r, t))
             {
-                //todo: change Item1 to Host, and Item2 to Port
-                Host = host.Item1,
-                Port = host.Item2,
                 Key = key?.Name
             };
+
+            FillHost(request);
 
             return request;
         }

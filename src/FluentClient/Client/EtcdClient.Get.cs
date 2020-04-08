@@ -17,13 +17,12 @@ namespace FluentClient.Client
 
         public IGetRequest Get(EtcdKey key)
         {
-            var host = Gateway.GetHost();
             var request = new GetRequest((r, t) => Transport.ExecuteGetAsync(r, t))
             {
-                Key = key.Name,
-                Host = host.Item1,
-                Port = host.Item2
+                Key = key.Name
             };
+
+            FillHost(request);
 
             return request;
         }

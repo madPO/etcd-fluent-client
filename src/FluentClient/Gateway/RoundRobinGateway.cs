@@ -16,11 +16,15 @@ namespace FluentClient.Gateway
                 .GetEnumerator();
         }
 
-        public (string, int) GetHost()
+        public EtcdHost GetHost()
         {
             var result = Next();
 
-            return (result.Host, result.Port);
+            return new EtcdHost
+            {
+                Uri = result.Host,
+                Port = result.Port
+            };
         }
 
         private Endpoint Next(bool reseted = false)

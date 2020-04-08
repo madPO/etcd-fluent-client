@@ -20,6 +20,8 @@ namespace FluentClient.Client
         
         IEtcdGateway Gateway { get; set; }
         
+        bool IsActive { get; }
+        
         /// <summary>
         /// Put value
         /// </summary>
