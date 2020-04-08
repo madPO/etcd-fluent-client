@@ -1,44 +1,32 @@
 namespace FluentClient.Request
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
-    using Transport;
 
     public class DeleteRequest : IDeleteRequest
     {
-        private readonly IEtcdTransport _transport;
+        private readonly Func<IDeleteRequest, CancellationToken, Task> _execute;
 
-        public DeleteRequest(IEtcdTransport transport)
+        public DeleteRequest(Func<IDeleteRequest, CancellationToken, Task> execute)
         {
-            _transport = transport;
+            _execute = execute;
         }
         
         public string Host { get; set; }
+        
         public int Port { get; set; }
+        
         public string Key { get; set; }
 
-        private EtcdKey _toKey;
+        public EtcdKey ToKey { get; set; }
 
-        private EtcdKey _containsKey;
-        
-        public IDeleteRequest ToKey(EtcdKey key)
-        {
-            _toKey = key;
-
-            return this;
-        }
-
-        public IDeleteRequest Contains(EtcdKey key)
-        {
-            _containsKey = _containsKey;
-
-            return this;
-        }
+        public EtcdKey ContainsKey { get; set; }
 
         public Task ExecuteAsync(CancellationToken cancellationToken = default)
         {
-            return _transport.ExecuteDeleteAsync(this, cancellationToken);
+            return _execute(this, cancellationToken);
         }
     }
 }

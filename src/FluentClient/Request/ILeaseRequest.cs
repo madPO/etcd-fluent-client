@@ -1,17 +1,24 @@
 namespace FluentClient.Request
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Client;
 
-    public interface ILeaseRequest : IRequest
+    public interface ICreateLeaseRequest : IRequest, IValueRequest<EtcdLease>
     {
-        Task<ILease> GrantLeaseAsync(CancellationToken cancellationToken = default);
-
-        Task RevokeAsync(CancellationToken cancellationToken = default);
-
-        Task KeepAliveAsync(CancellationToken cancellationToken = default);
-        
-        Task<long> TimeToLiveAsync(CancellationToken cancellationToken = default);
+        long Ttl { get; set; }
+    }
+    
+    public interface IGetLeaseRequest : IRequest, IValueRequest<EtcdLease>
+    {
+        long Id { get; set; }
+    }
+    
+    public interface IRevokeLeaseRequest : IRequest, IEmptyRequest
+    {
+        EtcdLease EtcdLease { get; set; }
+    }
+    
+    public interface ITimeToLiveLeaseRequest : IRequest, IValueRequest<long>
+    {
+        EtcdLease EtcdLease { get; set; }
     }
 }

@@ -1,15 +1,11 @@
 namespace FluentClient.Request
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Client;
 
-    public interface IDeleteRequest : IRequest
+    public interface IDeleteRequest : IRequest, IEmptyRequest
     {
-        IDeleteRequest ToKey(EtcdKey key);
+        EtcdKey ToKey { get; set; }
 
-        IDeleteRequest Contains(EtcdKey key);
-
-        Task ExecuteAsync(CancellationToken cancellationToken = default);
+        EtcdKey ContainsKey { get; set; }
     }
 }

@@ -1,35 +1,32 @@
 namespace FluentClient.Request
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
-    using Transport;
 
     public class EtcdPutRequest : IPutRequest
     {
-        private readonly IEtcdTransport _transport;
-
-        public EtcdPutRequest(IEtcdTransport transport)
+        private readonly Func<IPutRequest, CancellationToken, Task> _execute;
+        
+        public EtcdPutRequest(Func<IPutRequest, CancellationToken, Task> execute)
         {
-            _transport = transport;
+            _execute = execute;
         }
         
         public string Host { get; set; }
-        public int Port { get; set; }
-        public string Key { get; set; }
-        public byte[] Value { get; set; }
-        public ILease Lease { get; private set; }
         
-        public async Task WithLeaseAsync(ILease lease, CancellationToken cancellationToken = default)
+        public int Port { get; set; }
+        
+        public string Key { get; set; }
+        
+        public byte[] Value { get; set; }
+        
+        public EtcdLease EtcdLease { get; set; }
+        
+        public Task ExecuteAsync(CancellationToken cancellationToken = default)
         {
-            Lease = lease;
-
-            await ExecuteAsync(cancellationToken);
-        }
-
-        public async Task ExecuteAsync(CancellationToken cancellationToken = default)
-        {
-            await _transport.ExecutePutAsync(this, cancellationToken);
+            return _execute(this, cancellationToken);
         }
     }
 }

@@ -1,6 +1,6 @@
 namespace FluentClient.Client
 {
-    public class EtcdKey : IEtcdKey
+    public class EtcdKey
     {
         public string Name { get; set; }
 

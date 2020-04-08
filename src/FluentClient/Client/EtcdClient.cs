@@ -7,32 +7,11 @@ namespace FluentClient.Client
 
     public partial class EtcdClient : IEtcdClient
     {
-        private IEtcdAuthMethod _authMethod;
+        public IEtcdAuthMethod AuthMethod { get; set; }
         
-        private IEtcdTransport _transport;
+        public IEtcdTransport Transport { get; set;  }
         
-        private IEtcdGateway _gateway;
-
-        public IEtcdClient UseAuth(IEtcdAuthMethod authMethod)
-        {
-            _authMethod = authMethod;
-            
-            return this;
-        }
-
-        public IEtcdClient UseTransport(IEtcdTransport transport)
-        {
-            _transport = transport;
-
-            return this;
-        }
-
-        public IEtcdClient UseGateway(IEtcdGateway gateway)
-        {
-            _gateway = gateway;
-
-            return this;
-        }
+        public IEtcdGateway Gateway { get; set; }
 
         private void ReleaseUnmanagedResources()
         {
@@ -44,7 +23,7 @@ namespace FluentClient.Client
             ReleaseUnmanagedResources();
             if (disposing)
             {
-                _transport?.Dispose();
+                Transport?.Dispose();
             }
         }
 

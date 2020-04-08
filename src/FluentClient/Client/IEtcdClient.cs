@@ -14,30 +14,21 @@ namespace FluentClient.Client
     /// </summary>
     public interface IEtcdClient : IDisposable
     {
+        IEtcdAuthMethod AuthMethod { get; set; }
+        
+        IEtcdTransport Transport { get; set;  }
+        
+        IEtcdGateway Gateway { get; set; }
+        
         /// <summary>
         /// Put value
         /// </summary>
         Task PutAsync(EtcdKey key, byte[] value, CancellationToken cancellationToken = default);
-        
+
         /// <summary>
         /// Create put request
         /// </summary>
         IPutRequest Put(EtcdKey key, byte[] value);
-
-        /// <summary>
-        /// Add auth
-        /// </summary>
-        IEtcdClient UseAuth(IEtcdAuthMethod authMethod);
-
-        /// <summary>
-        /// Add transport
-        /// </summary>
-        IEtcdClient UseTransport(IEtcdTransport transport);
-        
-        /// <summary>
-        /// Add gateway
-        /// </summary>
-        IEtcdClient UseGateway(IEtcdGateway gateway);
 
         /// <summary>
         /// Get value by key
@@ -62,11 +53,15 @@ namespace FluentClient.Client
         /// <summary>
         /// Create lease
         /// </summary>
-        Task<ILease> GrantLeaseAsync(long second, CancellationToken cancellationToken = default);
+        Task<EtcdLease> GrantLeaseAsync(long second, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Get lease
         /// </summary>
-        Task<ILease> GetLeaseAsync(long id, CancellationToken cancellationToken = default);
+        Task<EtcdLease> GetLeaseAsync(long id, CancellationToken cancellationToken = default);
+        
+        Task RevokeLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default);
+        
+        Task<long> TimeToLiveLeaseAsync(EtcdLease lease, CancellationToken cancellationToken = default);
     }
 }

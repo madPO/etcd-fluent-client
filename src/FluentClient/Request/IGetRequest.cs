@@ -1,35 +1,16 @@
 namespace FluentClient.Request
 {
     using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Client;
 
-    public interface IGetRequest : IRequest
+    public interface IGetRequest : IRequest, IValueRequest<IReadOnlyCollection<byte[]>>
     {
-        /// <summary>
-        /// From <see cref="Key"/> to <see cref="key"/>
-        /// </summary>
-        IGetRequest ToKey(EtcdKey key);
+        EtcdKey ToKey { get; set; }
 
-        /// <summary>
-        /// Where key name contains <see cref="key"/>
-        /// </summary>
-        IGetRequest Contains(EtcdKey key);
+        EtcdKey ContainsKey { get; set; }
 
-        /// <summary>
-        /// Limit
-        /// </summary>
-        IGetRequest Limit(int limit);
+        int? Limit { get; set; }
 
-        /// <summary>
-        /// Key value version
-        /// </summary>
-        IGetRequest Revision(int version);
-
-        /// <summary>
-        /// Execute request
-        /// </summary>
-        Task<IReadOnlyCollection<byte[]>> ExecuteAsync(CancellationToken cancellationToken = default);
+        int? Version { get; set; }
     }
 }

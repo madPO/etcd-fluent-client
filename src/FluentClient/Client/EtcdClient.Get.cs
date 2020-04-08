@@ -17,8 +17,8 @@ namespace FluentClient.Client
 
         public IGetRequest Get(EtcdKey key)
         {
-            var host = _gateway.GetHost();
-            var request = new GetRequest(_transport)
+            var host = Gateway.GetHost();
+            var request = new GetRequest((r, t) => Transport.ExecuteGetAsync(r, t))
             {
                 Key = key.Name,
                 Host = host.Item1,
