@@ -17,12 +17,9 @@ namespace FluentClient.Request
         public string Host { get; set; }
         
         public int Port { get; set; }
-        
-        public string Key { get; set; }
-        
+
         public long Ttl { get; set; }
         
-        //todo: create abstract class with this method
         public Task<EtcdLease> ExecuteAsync(CancellationToken cancellationToken = default)
         {
             return _execute(this, cancellationToken);
@@ -41,8 +38,6 @@ namespace FluentClient.Request
         public string Host { get; set; }
         
         public int Port { get; set; }
-        
-        public string Key { get; set; }
         
         public long Id { get; set; }
         
@@ -65,8 +60,6 @@ namespace FluentClient.Request
         
         public int Port { get; set; }
         
-        public string Key { get; set; }
-        
         public EtcdLease EtcdLease { get; set; }
         
         public Task ExecuteAsync(CancellationToken cancellationToken = default)
@@ -87,8 +80,6 @@ namespace FluentClient.Request
         public string Host { get; set; }
         
         public int Port { get; set; }
-        
-        public string Key { get; set; }
         
         public EtcdLease EtcdLease { get; set; }
         
