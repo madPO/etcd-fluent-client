@@ -2,6 +2,7 @@ namespace GrpcTransport.Implementation
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using Dawn;
     using FluentClient.Auth;
 
     public class UserLoginAuth : IEtcdAuthMethod
@@ -12,6 +13,9 @@ namespace GrpcTransport.Implementation
 
         public UserLoginAuth(string login, string password)
         {
+            Guard.Argument(login).NotNull().NotEmpty();
+            Guard.Argument(password).NotNull().NotEmpty();
+            
             _login = login;
             _password = password;
         }

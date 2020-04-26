@@ -4,6 +4,7 @@ namespace FluentClient.Gateway
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using Dawn;
 
     public class RoundRobinGateway : IEtcdGateway
     {
@@ -11,8 +12,15 @@ namespace FluentClient.Gateway
 
         public RoundRobinGateway(string[] host)
         {
+            Guard.Argument(host).NotNull().NotEmpty();
+            foreach (var h in host)
+            {
+                Guard.Argument(h).NotNull().NotEmpty();
+            }
+            
             _host = host
                 .Select(x => Endpoint.Parse(x))
+                .Where(x => x != null)
                 .ToArray()
                 .GetEnumerator();
         }
@@ -20,6 +28,12 @@ namespace FluentClient.Gateway
         public EtcdHost GetHost()
         {
             var result = Next();
+
+            Guard.Argument(result)
+                .NotNull()
+                .Member(x => x.Host, x => x.NotNull().NotEmpty())
+                .Member(x => x.Port, x => x.Positive())
+                .Member(x => x.State, x => x.Equal(EndpointState.Work));
 
             return new EtcdHost
             {
@@ -54,6 +68,8 @@ namespace FluentClient.Gateway
 
             internal static Endpoint Parse(string host)
             {
+                Guard.Argument(host).NotNull().NotEmpty();
+                
                 var elements = host.Split(':');
                 if(elements.Length != 2)
                     throw new Exception();

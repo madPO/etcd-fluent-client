@@ -4,6 +4,7 @@ namespace FluentClient.Request
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
+    using Dawn;
 
     public class CreateLeaseRequest : ICreateLeaseRequest
     {
@@ -11,6 +12,8 @@ namespace FluentClient.Request
 
         public CreateLeaseRequest(Func<ICreateLeaseRequest, CancellationToken, Task<EtcdLease>> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
 
@@ -32,6 +35,8 @@ namespace FluentClient.Request
 
         public RevokeLeaseRequest(Func<IRevokeLeaseRequest, CancellationToken, Task> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
 
@@ -53,6 +58,8 @@ namespace FluentClient.Request
 
         public TimeToLiveLeaseRequest(Func<ITimeToLiveLeaseRequest, CancellationToken, Task<EtcdLease>> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
 

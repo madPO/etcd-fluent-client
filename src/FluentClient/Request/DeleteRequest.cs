@@ -4,6 +4,7 @@ namespace FluentClient.Request
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
+    using Dawn;
 
     public class DeleteRequest : IDeleteRequest
     {
@@ -11,6 +12,8 @@ namespace FluentClient.Request
 
         public DeleteRequest(Func<IDeleteRequest, CancellationToken, Task> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
         
