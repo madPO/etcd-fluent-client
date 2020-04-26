@@ -58,7 +58,7 @@ namespace FluentClient.Gateway
             return Next(true);
         }
 
-        internal class Endpoint
+        internal class Endpoint : IEquatable<Endpoint>
         {
             internal string Host { get; set; }
             
@@ -86,6 +86,20 @@ namespace FluentClient.Gateway
                 }
                 
                 throw new Exception();
+            }
+
+            public bool Equals(Endpoint other)
+            {
+                if (other == null)
+                    return false;
+
+                if (Host != other.Host)
+                    return false;
+
+                if (Port != other.Port)
+                    return false;
+
+                return true;
             }
         }
         
