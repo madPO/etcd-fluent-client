@@ -19,7 +19,7 @@ namespace FluentClient.Client
         {
             var request = new GetRequest((r, t) => Transport.ExecuteGetAsync(r, t))
             {
-                Key = key.Name
+                Key = key?.Name
             };
 
             FillHost(request);

@@ -26,6 +26,7 @@ namespace FluentClient.Extensions
             return request;
         }
 
+        //todo: у etcd ревизии не версии ключа, т.е. есть глобальная версия состояния - ревизия и можно запроашивать значения ключей, который были на ревизии
         public static IGetRequest Revision(this IGetRequest request, int version)
         {
             request.Version = version;

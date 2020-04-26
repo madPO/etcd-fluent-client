@@ -58,10 +58,10 @@ namespace GrpcTransport
         public async Task<IReadOnlyCollection<byte[]>> ExecuteGetAsync(IGetRequest request, CancellationToken cancellationToken)
         {
             var headers = new Metadata();
-            var get = new RangeRequest
-            {
-                Key = ByteString.CopyFromUtf8(request.Key.Name)
-            };
+            var get = new RangeRequest();
+
+            if (request.Key?.Name != null)
+                get.Key = ByteString.CopyFromUtf8(request.Key.Name);
 
             if (request.Limit.HasValue)
             {
@@ -75,6 +75,9 @@ namespace GrpcTransport
 
             if (request.ContainsKey != null)
             {
+                //todo: this not work
+                // get all keys and filter
+                // and then request on all key
                 headers.Add("prev-kv", request.ContainsKey.Name);
             }
 
@@ -83,10 +86,10 @@ namespace GrpcTransport
                 get.RangeEnd = ByteString.CopyFromUtf8(request.ToKey.Name);
             }
             
-            
-            var client = EtcdTransportClientFactory.GetKvClient(request.Host, request.Port);;
+            var client = EtcdTransportClientFactory.GetKvClient(request.Host, request.Port);
             var response = await client.RangeAsync(get, headers, cancellationToken: cancellationToken);
 
+            //todo: return all result with key and version
             return response.Kvs.Select(x => x.Value.ToByteArray()).ToArray();
         }
 
@@ -100,7 +103,7 @@ namespace GrpcTransport
             var client = EtcdTransportClientFactory.GetLeaseClient(request.Host, request.Port);
             var response = await client.LeaseGrantAsync(grant, cancellationToken: cancellationToken);
 
-            if (response.Error != null)
+            if (response.Error != null && !string.IsNullOrEmpty(response.Error))
             {
                 throw new Exception(response.Error);
             }

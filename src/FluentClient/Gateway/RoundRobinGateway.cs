@@ -1,16 +1,17 @@
 namespace FluentClient.Gateway
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
 
     public class RoundRobinGateway : IEtcdGateway
     {
-        private readonly IEnumerator<Endpoint> _host;
+        private readonly IEnumerator _host;
 
         public RoundRobinGateway(string[] host)
         {
-            _host = (IEnumerator<Endpoint>) host
+            _host = host
                 .Select(x => Endpoint.Parse(x))
                 .ToArray()
                 .GetEnumerator();
@@ -31,8 +32,9 @@ namespace FluentClient.Gateway
         {
             while (_host.MoveNext())
             {
-                if (_host.Current.State == EndpointState.Work)
-                    return _host.Current;
+                var current = (Endpoint) _host.Current;
+                if (current?.State == EndpointState.Work)
+                    return current;
             }
             
             if(reseted)
@@ -56,6 +58,7 @@ namespace FluentClient.Gateway
                 if(elements.Length != 2)
                     throw new Exception();
 
+                //todo: regex
                 if (int.TryParse(elements[1], out var p))
                 {
                     return new Endpoint
