@@ -1,9 +1,9 @@
 namespace UnitTest.Client
 {
     using System.Text;
-    using System.Threading;
     using System.Threading.Tasks;
     using FluentClient.Client;
+    using FluentClient.Extensions;
     using FluentClient.Gateway;
     using GrpcTransport;
     using GrpcTransport.Implementation;
@@ -18,7 +18,6 @@ namespace UnitTest.Client
             
             using (client)
             {
-                Thread.Sleep(10);
             }
         }
 
@@ -30,7 +29,6 @@ namespace UnitTest.Client
             
             using (client)
             {
-                Thread.Sleep(10);
             }
         }
         
@@ -42,7 +40,6 @@ namespace UnitTest.Client
             
             using (client)
             {
-                Thread.Sleep(10);
             }
         }
 

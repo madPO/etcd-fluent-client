@@ -29,7 +29,7 @@ namespace GrpcTransport
                 put.Lease = request.EtcdLease.Id;
             }
 
-            var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetKvClient(request.Host, request.Port);
             var response = await client.PutAsync(put, cancellationToken: cancellationToken);
         }
 
@@ -51,8 +51,7 @@ namespace GrpcTransport
                 headers.Add("prev-kv", request.ContainsKey.Name);
             }
             
-            //todo: method and lazy
-            var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetKvClient(request.Host, request.Port);;
             var response = await client.DeleteRangeAsync(delete, headers, cancellationToken: cancellationToken);
         }
 
@@ -85,7 +84,7 @@ namespace GrpcTransport
             }
             
             
-            var client = new KV.KVClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetKvClient(request.Host, request.Port);;
             var response = await client.RangeAsync(get, headers, cancellationToken: cancellationToken);
 
             return response.Kvs.Select(x => x.Value.ToByteArray()).ToArray();
@@ -98,7 +97,7 @@ namespace GrpcTransport
                 TTL = request.Ttl
             };
             
-            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetLeaseClient(request.Host, request.Port);
             var response = await client.LeaseGrantAsync(grant, cancellationToken: cancellationToken);
 
             if (response.Error != null)
@@ -116,7 +115,7 @@ namespace GrpcTransport
                 ID = request.EtcdLease.Id
             };
             
-            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetLeaseClient(request.Host, request.Port);
             var response = await client.LeaseRevokeAsync(revoke, cancellationToken:cancellationToken);
         }
 
@@ -127,7 +126,7 @@ namespace GrpcTransport
                 ID = request.EtcdLease.Id
             };
             
-            var client = new Lease.LeaseClient(new Channel(request.Host, request.Port, ChannelCredentials.Insecure));
+            var client = EtcdTransportClientFactory.GetLeaseClient(request.Host, request.Port);
             var response = await client.LeaseTimeToLiveAsync(timeToLive, cancellationToken:cancellationToken);
 
             return new EtcdLease(response.ID, response.TTL, response.GrantedTTL);
