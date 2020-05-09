@@ -1,5 +1,6 @@
 namespace Integration
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Threading;
@@ -11,13 +12,22 @@ namespace Integration
     using FluentClient.Gateway;
     using GrpcTransport;
 
-    public class ClientTest
+    public class ClientTest : IDisposable
     {
         private const string ServerUri = "127.0.0.1:2379";
+
+        private readonly EtcdServer _server;
+
+        public ClientTest()
+        {
+            _server = new EtcdServer();
+            _server.Run();
+        }
         
         [Fact]
-        public void CreateConnectionTest()
+        public async Task CreateConnectionTest()
         {
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -31,6 +41,7 @@ namespace Integration
         [Theory, AutoData]
         public async Task PutRequestTest(string key, byte[] value)
         {
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -44,6 +55,7 @@ namespace Integration
         [Theory, AutoData]
         public async Task LeaseRequestTest(int ttl)
         {
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -60,6 +72,7 @@ namespace Integration
         [Theory, AutoData]
         public async Task GetRequestTest(string key, byte[] value)
         {
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -77,6 +90,7 @@ namespace Integration
         [Theory, AutoData]
         public async Task DeleteRequestTest(string key, byte[] value)
         {
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -94,7 +108,8 @@ namespace Integration
         {
             const int zero = 0;
             const int connectionTime = 5;
-            
+
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -128,7 +143,8 @@ namespace Integration
                 "foo2",
                 "foo3"
             };
-            
+
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -158,7 +174,8 @@ namespace Integration
                 "foo2",
                 "foo3"
             };
-            
+
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -188,7 +205,8 @@ namespace Integration
                 "foo2",
                 "foo3"
             };
-            
+
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -216,6 +234,7 @@ namespace Integration
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
 
+            await _server.WaitLaunchEnding();
             using (client)
             {
                 foreach (var v in value)
@@ -247,7 +266,8 @@ namespace Integration
                 "foo2",
                 "foo3"
             };
-            
+
+            await _server.WaitLaunchEnding();
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
                 .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
@@ -263,6 +283,11 @@ namespace Integration
                     .ToKey(keys.Last())
                     .ExecuteAsync();
             }
+        }
+
+        public void Dispose()
+        {
+            _server?.Dispose();
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Integration
                     _taskSourcing.SetCanceled();
             });
 
-            var arguments = "run --rm --publish 2379:2379 --publish 2380:2380";
+            var arguments = "run --rm --publish 2379:2379";
 
             if (string.IsNullOrEmpty(_rootPassword))
             {
@@ -99,6 +99,7 @@ namespace Integration
 
         public void Stop()
         {
+            const int waitTime = 60 * 1000;
             if(_state == ServerState.Stopping || _state == ServerState.Empty)
                 return;
 
@@ -106,8 +107,12 @@ namespace Integration
             if (_process != null)
             {
                 _process.Kill();
-                Process.Start("docker.exe", $"stop {_name}");
-                _process.WaitForExit(60 * 1000);
+                var stopCmd = new Process();
+                stopCmd.StartInfo.FileName = "docker.exe";
+                stopCmd.StartInfo.Arguments = $"stop {_name}";
+                stopCmd.Start();
+                _process.WaitForExit(waitTime);
+                stopCmd.WaitForExit(waitTime);
             }
             
             _state = ServerState.Empty;
