@@ -228,7 +228,7 @@ namespace Integration
         }
         
         [Theory, AutoData]
-        public async Task RevisionGetRequestTest(string key, byte[][] value)
+        public async Task RevisionGetRequestTest(string key, [MinLengthAttribute(2)] byte[][] value)
         {
             var client = new EtcdClient()
                 .UseTransport(new EtcdGrpcTransport())
