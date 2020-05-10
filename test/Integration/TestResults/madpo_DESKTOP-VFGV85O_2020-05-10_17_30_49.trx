@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="05f2a725-675b-4fd2-a05a-92a187409b47" name="madpo@DESKTOP-VFGV85O 2020-05-10 17:30:49" runUser="DESKTOP-VFGV85O\madpo" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2020-05-10T17:30:49.5633193+03:00" queuing="2020-05-10T17:30:49.5633213+03:00" start="2020-05-10T17:30:42.8970184+03:00" finish="2020-05-10T17:30:53.6208701+03:00" />
+  <TestSettings name="default" id="c2b7e78a-d9f9-4700-9303-51175d8924da">
+    <Deployment runDeploymentRoot="madpo_DESKTOP-VFGV85O_2020-05-10_17_30_49" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="679bc416-372c-461f-8684-55c688269857" testId="b69a3326-e8f6-374c-4ff7-ad5e1670c887" testName="Integration.ClientTest.LimitGetRequestTest(value: [244, 241, 239])" computerName="DESKTOP-VFGV85O" duration="00:00:01.4980000" startTime="2020-05-10T17:30:51.0341017+03:00" endTime="2020-05-10T17:30:51.0341025+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="679bc416-372c-461f-8684-55c688269857">
+      <Output>
+        <ErrorInfo>
+          <Message>System.ArgumentNullException : The FluentClient.Client.EtcdKey argument cannot be null.&#xD;
+Parameter name: The FluentClient.Client.EtcdKey argument</Message>
+          <StackTrace>   at Dawn.Guard.NotNull[T](ArgumentInfo`1&amp; argument, String message)&#xD;
+   at FluentClient.Client.EtcdClient.Get(EtcdKey key) in E:\etcd-fluent-client\src\FluentClient\Client\EtcdClient.Get.cs:line 24&#xD;
+   at Integration.ClientTest.LimitGetRequestTest(Byte[] value) in E:\etcd-fluent-client\test\Integration\ClientTest.cs:line 221&#xD;
+--- End of stack trace from previous location where exception was thrown ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b69bbae5-f036-42fc-a774-53a6dd538435" testId="e437f6dc-da98-04c9-914d-489c22d0b0e1" testName="Integration.ClientTest.LeaseRequestTest(ttl: 75)" computerName="DESKTOP-VFGV85O" duration="00:00:01.9580000" startTime="2020-05-10T17:30:52.9806763+03:00" endTime="2020-05-10T17:30:52.9806766+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b69bbae5-f036-42fc-a774-53a6dd538435" />
+    <UnitTestResult executionId="4227934d-731b-4aed-9f16-962cf779728e" testId="064905ae-8d21-fa57-1a5a-09e5789abeb4" testName="Integration.ClientTest.DeleteToKeyRequestTest(value: [38, 106, 97])" computerName="DESKTOP-VFGV85O" duration="00:00:02.0300000" startTime="2020-05-10T17:30:49.4978070+03:00" endTime="2020-05-10T17:30:49.4978946+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4227934d-731b-4aed-9f16-962cf779728e" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Integration.ClientTest.LeaseRequestTest" storage="e:\etcd-fluent-client\test\integration\bin\debug\netcoreapp2.1\integration.dll" id="e437f6dc-da98-04c9-914d-489c22d0b0e1">
+      <Execution id="b69bbae5-f036-42fc-a774-53a6dd538435" />
+      <TestMethod codeBase="E:\etcd-fluent-client\test\Integration\bin\Debug\netcoreapp2.1\Integration.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Integration.ClientTest" name="LeaseRequestTest" />
+    </UnitTest>
+    <UnitTest name="Integration.ClientTest.LimitGetRequestTest" storage="e:\etcd-fluent-client\test\integration\bin\debug\netcoreapp2.1\integration.dll" id="b69a3326-e8f6-374c-4ff7-ad5e1670c887">
+      <Execution id="679bc416-372c-461f-8684-55c688269857" />
+      <TestMethod codeBase="E:\etcd-fluent-client\test\Integration\bin\Debug\netcoreapp2.1\Integration.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Integration.ClientTest" name="LimitGetRequestTest" />
+    </UnitTest>
+    <UnitTest name="Integration.ClientTest.DeleteToKeyRequestTest" storage="e:\etcd-fluent-client\test\integration\bin\debug\netcoreapp2.1\integration.dll" id="064905ae-8d21-fa57-1a5a-09e5789abeb4">
+      <Execution id="4227934d-731b-4aed-9f16-962cf779728e" />
+      <TestMethod codeBase="E:\etcd-fluent-client\test\Integration\bin\Debug\netcoreapp2.1\Integration.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="Integration.ClientTest" name="DeleteToKeyRequestTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="b69a3326-e8f6-374c-4ff7-ad5e1670c887" executionId="679bc416-372c-461f-8684-55c688269857" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e437f6dc-da98-04c9-914d-489c22d0b0e1" executionId="b69bbae5-f036-42fc-a774-53a6dd538435" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="064905ae-8d21-fa57-1a5a-09e5789abeb4" executionId="4227934d-731b-4aed-9f16-962cf779728e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Список результатов" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="Все загруженные результаты" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="3" executed="3" passed="2" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 4.6.26725.06)&#xD;
+[xUnit.net 00:00:02.66]   Discovering: Integration&#xD;
+[xUnit.net 00:00:02.71]   Discovered:  Integration&#xD;
+[xUnit.net 00:00:02.71]   Starting:    Integration&#xD;
+[xUnit.net 00:00:06.48]       System.ArgumentNullException : The FluentClient.Client.EtcdKey argument cannot be null.&#xD;
+[xUnit.net 00:00:06.48]       Parameter name: The FluentClient.Client.EtcdKey argument&#xD;
+[xUnit.net 00:00:06.48]       Stack Trace:&#xD;
+[xUnit.net 00:00:06.48]            at Dawn.Guard.NotNull[T](ArgumentInfo`1&amp; argument, String message)&#xD;
+[xUnit.net 00:00:06.48]         E:\etcd-fluent-client\src\FluentClient\Client\EtcdClient.Get.cs(24,0): at FluentClient.Client.EtcdClient.Get(EtcdKey key)&#xD;
+[xUnit.net 00:00:06.48]         E:\etcd-fluent-client\test\Integration\ClientTest.cs(221,0): at Integration.ClientTest.LimitGetRequestTest(Byte[] value)&#xD;
+[xUnit.net 00:00:06.48]         --- End of stack trace from previous location where exception was thrown ---&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-VFGV85O" outcome="Error" timestamp="2020-05-10T17:30:51.0282850+03:00">
+        <Text>[xUnit.net 00:00:06.47]     Integration.ClientTest.LimitGetRequestTest(value: [244, 241, 239]) [FAIL]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-VFGV85O" outcome="Error" timestamp="2020-05-10T17:30:53.5431664+03:00">
+        <Text>Тестовый запуск отменяется: превышено допустимое время ожидания в 10000 мс.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>
