@@ -90,9 +90,7 @@ namespace GrpcTransport
                 .NotNull()
                 .Member(x => x.Host, x => x.NotNull().NotEmpty())
                 .Member(x => x.Port, x => x.Positive());
-                
-                
-            
+
             var headers = new Metadata();
             var get = new RangeRequest();
 

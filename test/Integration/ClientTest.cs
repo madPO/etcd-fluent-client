@@ -243,7 +243,7 @@ namespace Integration
                 }
 
                 var result = await client.Get(key)
-                    .Revision(1)
+                    .Revision(2)
                     .ExecuteAsync();
                 
                 Assert.Equal(value[1], result.ToArray()[1]);
