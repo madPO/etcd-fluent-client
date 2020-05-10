@@ -2,6 +2,7 @@ namespace FluentClient.Client
 {
     using System;
     using Auth;
+    using Dawn;
     using Gateway;
     using Request;
     using Transport;
@@ -23,9 +24,20 @@ namespace FluentClient.Client
             _isActive = true;
         }
 
-        protected void FillHost(IRequest request)
+        private void FillHost(IRequest request)
         {
+            Guard.Argument(request)
+                .NotNull();
+            Guard.Argument(Gateway)
+                .NotNull();
+            
             var host = Gateway.GetHost();
+
+            Guard.Argument(host)
+                .NotNull()
+                .Member(x => x.Port, x => x.Positive())
+                .Member(x => x.Uri, x => x.NotNull().NotEmpty());
+
             request.Host = host.Uri;
             request.Port = host.Port;
         }

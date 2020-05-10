@@ -5,6 +5,7 @@ namespace FluentClient.Request
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
+    using Dawn;
 
     public class GetRequest : IGetRequest
     {
@@ -12,6 +13,8 @@ namespace FluentClient.Request
         
         public GetRequest(Func<IGetRequest, CancellationToken, Task<IReadOnlyCollection<byte[]>>> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
 

@@ -4,6 +4,7 @@ namespace FluentClient.Request
     using System.Threading;
     using System.Threading.Tasks;
     using Client;
+    using Dawn;
 
     public class EtcdPutRequest : IPutRequest
     {
@@ -11,6 +12,8 @@ namespace FluentClient.Request
         
         public EtcdPutRequest(Func<IPutRequest, CancellationToken, Task> execute)
         {
+            Guard.Argument(execute).NotNull();
+            
             _execute = execute;
         }
         

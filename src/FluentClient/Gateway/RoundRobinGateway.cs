@@ -1,17 +1,26 @@
 namespace FluentClient.Gateway
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using Dawn;
 
     public class RoundRobinGateway : IEtcdGateway
     {
-        private readonly IEnumerator<Endpoint> _host;
+        private readonly IEnumerator _host;
 
         public RoundRobinGateway(string[] host)
         {
-            _host = (IEnumerator<Endpoint>) host
+            Guard.Argument(host).NotNull().NotEmpty();
+            foreach (var h in host)
+            {
+                Guard.Argument(h).NotNull().NotEmpty();
+            }
+            
+            _host = host
                 .Select(x => Endpoint.Parse(x))
+                .Where(x => x != null)
                 .ToArray()
                 .GetEnumerator();
         }
@@ -19,6 +28,12 @@ namespace FluentClient.Gateway
         public EtcdHost GetHost()
         {
             var result = Next();
+
+            Guard.Argument(result)
+                .NotNull()
+                .Member(x => x.Host, x => x.NotNull().NotEmpty())
+                .Member(x => x.Port, x => x.Positive())
+                .Member(x => x.State, x => x.Equal(EndpointState.Work));
 
             return new EtcdHost
             {
@@ -31,8 +46,9 @@ namespace FluentClient.Gateway
         {
             while (_host.MoveNext())
             {
-                if (_host.Current.State == EndpointState.Work)
-                    return _host.Current;
+                var current = (Endpoint) _host.Current;
+                if (current?.State == EndpointState.Work)
+                    return current;
             }
             
             if(reseted)
@@ -42,7 +58,7 @@ namespace FluentClient.Gateway
             return Next(true);
         }
 
-        internal class Endpoint
+        internal class Endpoint : IEquatable<Endpoint>
         {
             internal string Host { get; set; }
             
@@ -52,10 +68,13 @@ namespace FluentClient.Gateway
 
             internal static Endpoint Parse(string host)
             {
+                Guard.Argument(host).NotNull().NotEmpty();
+                
                 var elements = host.Split(':');
                 if(elements.Length != 2)
                     throw new Exception();
 
+                //todo: regex
                 if (int.TryParse(elements[1], out var p))
                 {
                     return new Endpoint
@@ -67,6 +86,20 @@ namespace FluentClient.Gateway
                 }
                 
                 throw new Exception();
+            }
+
+            public bool Equals(Endpoint other)
+            {
+                if (other == null)
+                    return false;
+
+                if (Host != other.Host)
+                    return false;
+
+                if (Port != other.Port)
+                    return false;
+
+                return true;
             }
         }
         

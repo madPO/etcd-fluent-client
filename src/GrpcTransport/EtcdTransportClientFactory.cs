@@ -1,5 +1,6 @@
 namespace GrpcTransport
 {
+    using Dawn;
     using Etcdserverpb;
     using Grpc.Core;
 
@@ -17,12 +18,18 @@ namespace GrpcTransport
         
         public static KV.KVClient GetKvClient(string host, int port)
         {
+            Guard.Argument(host).NotNull().NotEmpty();
+            Guard.Argument(port).Positive();
+            
             var channel = new Channel(host, port, ChannelCredentials.Insecure);
             return _kvPool.Get(channel, () => new KV.KVClient(channel));
         }
 
         public static Lease.LeaseClient GetLeaseClient(string host, int port)
         {
+            Guard.Argument(host).NotNull().NotEmpty();
+            Guard.Argument(port).Positive();
+            
             var channel = new Channel(host, port, ChannelCredentials.Insecure);
             return _leasePool.Get(channel, () => new Lease.LeaseClient(channel));
         } 
