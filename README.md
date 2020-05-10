@@ -30,7 +30,12 @@ Key - string, return type is _ReadOnlyCollection<byte[]>_.
 ```c#
 var result = await client.GetAsync(key);
 ```
-Range from _key1_ to _key2_ - not implemented.     
+Range from _key1_ to _key2_, **example**:
+```c#
+var result = await client.Get(firstKey)
+                    .ToKey(lastKey)
+                    .ExecuteAsync();
+```     
 Search values by prefix - not implemented.     
 Get values with limit - not implemented.    
 ### Read past version of keys
@@ -63,3 +68,15 @@ Not implemented.
 Not implemented.    
 ## Authentication
 Not implemented.
+## Server selection
+Option implemented - _RoundRobinGateway_.
+**Example**:
+```c#
+  var client = new EtcdClient()
+                .UseTransport(new EtcdGrpcTransport())
+                .UseGateway(new RoundRobinGateway(new [] { ServerUri }));
+  using(clinet)
+  {
+    // ....
+  }
+```
