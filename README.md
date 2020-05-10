@@ -48,14 +48,19 @@ Where key - string.
 ```c#
 await client.DeleteAsync(key);
 ```
-Range delete - not implemented.    
+Range delete, **example**:
+```c#
+ await client.Delete(firtsKey)
+             .ToKey(lastKey)
+             .ExecuteAsync();
+```    
 Prefix delete - not implemented.    
 ### Watch key changes
 Not implemented.    
 ### Compacted revisions
 Not implemented.    
 ### Grant leases
-Where ttl - long (seconds)
+Where ttl - long (seconds).    
 **Example**:
 ```c#
 var lease = await client.GrantLeaseAsync(ttl);
