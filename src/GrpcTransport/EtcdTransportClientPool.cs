@@ -2,6 +2,8 @@ namespace GrpcTransport
 {
     using System;
     using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Linq;
     using Dawn;
     using Grpc.Core;
 
@@ -28,5 +30,7 @@ namespace GrpcTransport
 
             return _pool[channel.Target];
         }
+
+        public IReadOnlyCollection<TType> All => _pool.Values.ToArray();
     }
 }

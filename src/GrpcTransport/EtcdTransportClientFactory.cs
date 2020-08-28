@@ -9,11 +9,14 @@ namespace GrpcTransport
         private static EtcdTransportClientPool<KV.KVClient> _kvPool;
         
         private static EtcdTransportClientPool<Lease.LeaseClient> _leasePool;
+        
+        private static EtcdTransportClientPool<Watch.WatchClient> _watchPool;
 
         static EtcdTransportClientFactory()
         {
             _kvPool = new EtcdTransportClientPool<KV.KVClient>();
             _leasePool = new EtcdTransportClientPool<Lease.LeaseClient>();
+            _watchPool = new EtcdTransportClientPool<Watch.WatchClient>();
         }
         
         public static KV.KVClient GetKvClient(string host, int port)
@@ -34,5 +37,13 @@ namespace GrpcTransport
             return _leasePool.Get(channel, () => new Lease.LeaseClient(channel));
         } 
         
+        public static Watch.WatchClient GetWatchClient(string host, int port)
+        {
+            Guard.Argument(host).NotNull().NotEmpty();
+            Guard.Argument(port).Positive();
+            
+            var channel = new Channel(host, port, ChannelCredentials.Insecure);
+            return _watchPool.Get(channel, () => new Watch.WatchClient(channel));
+        }
     }
 }
