@@ -1,18 +1,19 @@
-namespace FluentClient.Gateway
+namespace EtcdClient.Core.HostResolver
 {
     using System;
     using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
     using Dawn;
+    using Gateway;
 
-    public class RoundRobinGateway : IEtcdGateway
+    public class RoundRobinHostResolver : IEtcdHostResolver
     {
         private readonly IEnumerator _host;
 
-        public RoundRobinGateway(string[] host)
+        public RoundRobinHostResolver(string[] host)
         {
             Guard.Argument(host).NotNull().NotEmpty();
+            
             foreach (var h in host)
             {
                 Guard.Argument(h).NotNull().NotEmpty();

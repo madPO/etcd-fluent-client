@@ -1,5 +1,7 @@
 namespace EtcdClient.Core
 {
+    using Gateway;
+
     /// <summary>
     /// Etcd client factory
     /// </summary>
@@ -13,7 +15,7 @@ namespace EtcdClient.Core
         /// <summary>
         /// Register gateway method 
         /// </summary>
-        void RegisterGateway(IEtcdGateway gateway);
+        void RegisterGateway(IEtcdHostResolver gateway);
         
         /// <summary>
         /// Register transport method

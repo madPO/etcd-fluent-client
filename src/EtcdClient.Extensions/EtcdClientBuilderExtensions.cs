@@ -1,6 +1,7 @@
 namespace EtcdClient.Extensions
 {
     using Core;
+    using Core.HostResolver;
     using Dawn;
 
     /// <summary>
@@ -8,11 +9,11 @@ namespace EtcdClient.Extensions
     /// </summary>
     public static class EtcdClientBuilderExtensions
     {
-        public static IEtcdClientBuilder WithRoundRobinGateway(this IEtcdClientBuilder builder, params string[] servers)
+        public static IEtcdClientBuilder WithRoundRobinGateway(this IEtcdClientBuilder builder, params string[] host)
         {
             Guard.Argument(builder).NotNull();
 
-            builder.RegisterGateway();
+            builder.RegisterGateway(new RoundRobinHostResolver(host));
             
             return builder;
         }
