@@ -1,8 +1,8 @@
-namespace EtcdClient.Extensions
+namespace EtcdClient.Core.Extensions
 {
     using Core;
-    using Core.HostResolver;
     using Dawn;
+    using HostResolver;
 
     /// <summary>
     /// Extensions for <see cref="IEtcdClientBuilder"/>

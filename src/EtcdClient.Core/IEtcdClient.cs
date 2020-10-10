@@ -1,5 +1,7 @@
 namespace EtcdClient.Core
 {
+    using Operations;
+
     /// <summary>
     /// Etcd client
     /// </summary>
@@ -8,21 +10,16 @@ namespace EtcdClient.Core
         /// <summary>
         /// Put key\value pair in to Etcd
         /// </summary>
-        IEtcdPutBuilder Put(string key, byte[] value);
+        IEtcdPutOperation Put(string key, byte[] value);
 
         /// <summary>
         /// Get value from Etcd
         /// </summary>
-        IEtcdGetBuilder Get(string key);
+        IEtcdGetOperation Get(string key);
 
         /// <summary>
         /// Remove key\value from Etcd
         /// </summary>
-        IEtcdDeleteBuilder Delete(string key);
-
-        /// <summary>
-        /// Get lease for key
-        /// </summary>
-        IEtcdGrantLeaseBuilder GrantLease(int ttl);
+        IEtcdDeleteOperation Delete(string key);
     }
 }
