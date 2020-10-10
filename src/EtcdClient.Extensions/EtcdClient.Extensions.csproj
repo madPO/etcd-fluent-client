@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Description>Core Etcd extensions project</Description>
+    </PropertyGroup>
+
+
+
+    <ItemGroup>
+        <PackageReference Include="Dawn.Guard" Version="1.12.0" />
+    </ItemGroup>
+
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\EtcdClient.Core\EtcdClient.Core.csproj" />
+    </ItemGroup>
+</Project>

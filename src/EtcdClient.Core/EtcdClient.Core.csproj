@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <Description>Core Etcd core project</Description>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="Dawn.Guard" Version="1.12.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="Operations" />
+      <Folder Include="HostResolver" />
+    </ItemGroup>    
+
+</Project>

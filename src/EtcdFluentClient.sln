@@ -10,6 +10,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "..\test\UnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration", "..\test\Integration\Integration.csproj", "{74B3CD78-B106-4EA7-955E-B814090D9F2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtcdClient.Core", "EtcdClient.Core\EtcdClient.Core.csproj", "{302D3061-58FF-4036-A774-5824BD355043}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtcdClient.Extensions", "EtcdClient.Extensions\EtcdClient.Extensions.csproj", "{BE28B8C1-FE95-47DD-843C-BFBDE931072E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{74B3CD78-B106-4EA7-955E-B814090D9F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74B3CD78-B106-4EA7-955E-B814090D9F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74B3CD78-B106-4EA7-955E-B814090D9F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{302D3061-58FF-4036-A774-5824BD355043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{302D3061-58FF-4036-A774-5824BD355043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{302D3061-58FF-4036-A774-5824BD355043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{302D3061-58FF-4036-A774-5824BD355043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE28B8C1-FE95-47DD-843C-BFBDE931072E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE28B8C1-FE95-47DD-843C-BFBDE931072E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE28B8C1-FE95-47DD-843C-BFBDE931072E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE28B8C1-FE95-47DD-843C-BFBDE931072E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F0B42F6D-E0D7-4DC9-B56F-7D0F87EB2F1D} = {22751E59-B535-4EAE-8A84-0B5BCC656816}
